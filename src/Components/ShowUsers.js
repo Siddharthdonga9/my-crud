@@ -87,6 +87,8 @@ const navigate = useNavigate();
             <th scope="col">Lastname</th>
             <th scope="col">mobileNumber:</th>
             <th scope="col">City</th>
+            <th scope="col">gender</th>
+            <th scope="col">hobby</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -99,11 +101,12 @@ fdata.length > 0 && fdata.map((dd, i) => (
 
             <tbody>
               <tr>
-
                 <td>{dd.fname}</td>
                 <td>{dd.lname}</td>
                 <td>{dd.mNumber}</td>
                 <td>{dd.city}</td>
+                <td>{dd.gender}</td>
+                <td>{dd.hobby}</td>
                 <td> <button className='btn btn-danger' onClick={() => handleDelete(i)}>Delete</button> 
                 <button className='btn btn-warning mx-2'onClick={() => Edit(i)}>Edit</button>
                 
