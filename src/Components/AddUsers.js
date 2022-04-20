@@ -16,11 +16,17 @@ export default function AddUsers() {
     hobby: [],
 
   });
-  // hobby
+// validation
+
+const[nameValid,setNameValid]=useState({
+  fname:true,
+  lname:true
+})
 
 
 
 
+  // Validation hooks
   const handelHobbyValue = (e) => {
 
     let value = user.hobby || [];
@@ -49,31 +55,27 @@ export default function AddUsers() {
         hobby: obj[id].hobby,
 
       })
-      
-     
-
-
     }
   }, [id])
 
-  // const hobbyData = () => {
-
-  //   let checklist = document.getElementsByName('hobby');
-  //      checklist.forEach((item, i) => {
-  //      user.hobby.forEach((element) => {
-  //         if (item.value === element) {
-  //           document.getElementById(item.id).checked = true;
-  //         }
-  //       })
-
-  //     })
-
-  // }
+ 
 
 
   const UserSubmithandler = (e) => {
     e.preventDefault();
     // creating object 
+
+if(user.fname.trim()===''){
+  setNameValid(false)
+return;
+}
+setNameValid(true)
+
+if(user.lname.trim()===''){
+  setNameValid(false)
+}
+setNameValid(true)
+     
     // props.history.push({
     //   pathname: "/showUsers",
     //   user
@@ -84,18 +86,16 @@ export default function AddUsers() {
     //   lname,
     //   mNumber
     // }
-
     //  setUser(data);
-
-
-
     // setFname('');
     // setLname('');
     // setMnumber('');
-    navigate('/')
+// Validation Start
+ 
 
-    //  localStorage.setItem('Users',JSON.stringify([...user,data]))
-    //  
+
+    // validation End 
+  
     if (id == null) {
       const fieldValue = localStorage.getItem('Users');
       // console.log({ fieldValue });
@@ -133,17 +133,18 @@ export default function AddUsers() {
       mNumber: '',
       city: '',
       gender: '',
+      hobby:[],
     })
-
+    navigate('/') 
     // edit
-
+    
   }
 
 
 
   return (
     <>
-      <h1 className='text-center'>Add Users</h1>
+      <h1 className='text-center'> {id ?"Edit":"Add"} Users</h1>
       <form onSubmit={UserSubmithandler}>
         <div className="row g-3 mt-5">
           <div className="col-6">
@@ -154,12 +155,15 @@ export default function AddUsers() {
               aria-label="First name"
               name='fname'
               onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })} value={user.fname} />
+{/* validation */}
+           {!nameValid&& <p className='error'>Enter Your FName</p>}
           </div>
           <div className="col-6">
             <input type="text" name='lname' className="form-control" placeholder="Last name" aria-label="Last name" onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })} value={user.lname} />
+            {!nameValid&& <p className='error'>Enter Your LName</p>}
           </div>
           <div className="col-6">
-            <input type="text" name='mNumber' className="form-control" placeholder="mobile number" aria-label="mobile number" onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })} value={user.mNumber} />
+            <input type="number" name='mNumber' className="form-control" placeholder="mobile number" aria-label="mobile number" onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })} value={user.mNumber} />
           </div>
           <div className="col-6">
 
