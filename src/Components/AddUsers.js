@@ -95,12 +95,9 @@ function AddUsers(props) {
               aria-label="First name"
               name='fname'
               onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })} value={user.fname} />
-            {/* validation */}
-            {/* {!nameValid && <p className='error'>Enter Your FName</p>} */}
           </div>
           <div className="col-6">
             <input type="text" name='lname' className="form-control" placeholder="Last name" aria-label="Last name" onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })} value={user.lname} />
-            {/* {!nameValid && <p className='error'>Enter Your LName</p>} */}
           </div>
           <div className="col-6">
             <input type="number" name='mNumber' className="form-control" placeholder="mobile number" aria-label="mobile number" onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })} value={user.mNumber} />
