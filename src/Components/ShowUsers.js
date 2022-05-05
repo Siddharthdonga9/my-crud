@@ -1,77 +1,30 @@
-// import React, { useEffect, useState } from 'react'
-// // import { useNavigate } from 'react-router';
-
-// export default function ShowUsers() {
-//   const [fdata,setFdata] = useState([])
-
-//   // const data = JSON.parse(localStorage.getItem("Users"))
-//   // setFdata(data);
-//   // console.log({fdata});
-
-//   useEffect(()=>{
-//     const data = JSON.parse(localStorage.getItem("Users"))
-//     setFdata(data);
-//   },[])
-//   return (
-//     <>
-//     <h1> aaaaaaaaaaaaaaaaaaaaaaaaaaa </h1>
-
-//    {/* {fdata && !fdata === undefined && fdata.map((data, i) => { 
-//      <h2>
-//        {data.fname}
-//      </h2>
-//    })} */}
-
-//     </>
-//   )
-// }
-
-// secound trick to push data history and location to acc.. data 
-// import React from 'react'
-
-// export default function ShowUsers(props) {
-
-//   const { fname, lname, mNumber } =
-//     (props.location && props.location.state) || {};
-//   return (
-//     <div>
-
-
-
 
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-
-export default function ShowUsers() {
+import { CreateData, EditData, DeletData } from '../Redux/Actions/Action'
+import { connect } from 'react-redux';
+ function ShowUsers(props) {
   const [fdata, setFdata] = useState([])
-  const [Delete, setDelete] = useState(false)
-  
-const navigate = useNavigate();
-// const params =useParams();
-  
-  useEffect(() => {
-     const data = JSON.parse(localStorage.getItem("Users"))
-    setFdata(data);
-    console.log(data);
-  }, []);
 
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("Users"))
-   setFdata(data);
-   setDelete(false)
- }, [Delete]);
+  
+  
+
+  const navigate = useNavigate();
+const { list, dispatch } = props;
+console.log("list Data----------------------------->",props.list.Data);
+  console.log("props------------------------------------------->Show User",props);
+
 
   const handleDelete = (i) => {
-    fdata.splice(i, 1);
-    setFdata(fdata);
-    setDelete(true)
-    localStorage.setItem("Users", JSON.stringify(fdata))
+    props.list.Data.splice(i, 1);
+    setFdata(props.list.Data);
+    dispatch(DeletData(props.list.Data));
   };
 
 
   
   const Edit = (i) => {
-   console.log(fdata[i]);
+   console.log(props.list.Data[i]);
    navigate(`/fillData/${i}`)
    
   }
@@ -96,7 +49,7 @@ const navigate = useNavigate();
       </table>
       {
 
-fdata.length > 0 && fdata.map((dd, i) => (
+props.list.Data.length > 0 && props.list.Data.map((dd, i) => (
 
           <table class="table">
 
@@ -123,4 +76,10 @@ fdata.length > 0 && fdata.map((dd, i) => (
   )
 }
 
+const mapStateToProps = (state) => {
+  return {
+    list: state.list,
+  };
+};
+export default connect(mapStateToProps)(ShowUsers);
 
